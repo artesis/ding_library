@@ -31,6 +31,10 @@ projects[geofield][type] = module
 projects[geofield][subdir] = contrib
 projects[geofield][version] = 1.0-alpha5
 
+projects[i18n][type] = module
+projects[i18n][subdir] = contrib
+projects[i18n][version] = 1.3
+
 projects[libraries][type] = module
 projects[libraries][subdir] = contrib
 projects[libraries][version] = 1.0

@@ -134,7 +134,16 @@ function ding_library_block_view($delta = '') {
   if ($delta == 'ding_menu') {
     $block['subject'] = t('Main menu');
     // First level of main menu.
-    $links = menu_navigation_links('main-menu', 0);
+    // We added the i18n_menu module as a dependency in
+    // ding_library_update_7003() but we check for the existence to ensure a
+    // clean upgrade path.
+    if (module_exists('i18n_menu')) {
+      $links = i18n_menu_navigation_links('main-menu', 0);
+    }
+    else {
+      $links = menu_navigation_links('main-menu', 0);
+    }
+
     // Theme the lot as a list of links.
     $block['content']['main-menu'] = array(
       '#markup' => theme('links__library_menu', array(
@@ -342,4 +351,3 @@ function ding_library_views_data_alter(&$data) {
 }
 
 include_once('ding_library.features.inc');
-
