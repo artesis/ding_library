@@ -45,7 +45,7 @@ function ding_library_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'openlayers_source';
-  $strongarm->value = 'profiles/ding2/libraries/openlayers/OpenLayers.js';
+  $strongarm->value = 'profiles/artesis/libraries/openlayers/OpenLayers.js';
   $export['openlayers_source'] = $strongarm;
 
   $strongarm = new stdClass;
