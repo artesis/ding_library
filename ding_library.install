@@ -67,3 +67,14 @@ function ding_library_update_7003() {
   // Enable i18n_menu and its dependencies.
   module_enable(array('i18n_menu'), TRUE);
 }
+
+/**
+ * Ding2 has been removed from profiles
+ */
+function ding_library_update_7004() {
+  $openlayers_source = variable_get('openlayers_source', FALSE);
+
+  if ($openlayers_source == 'profiles/ding2/libraries/openlayers/OpenLayers.js') {
+    variable_set('openlayers_source', 'profiles/artesis/libraries/openlayers/OpenLayers.js');
+  }
+}
