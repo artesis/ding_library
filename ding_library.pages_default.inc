@@ -371,15 +371,15 @@ function ding_library_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
-    $pane->pid = 'new-27';
+    $pane->pid = 'new-1';
     $pane->panel = 'left';
     $pane->type = 'block';
-    $pane->subtype = 'system-main-menu';
+    $pane->subtype = 'ding_library-ding_sidebar_menu';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
       'override_title' => 1,
-      'override_title_text' => 'Main menu',
+      'override_title_text' => 'See more',
     );
     $pane->cache = array();
     $pane->style = array(
@@ -389,36 +389,10 @@ function ding_library_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $display->content['new-27'] = $pane;
-    $display->panels['left'][0] = 'new-27';
+    $display->content['new-1'] = $pane;
+    $display->panels['left'][0] = 'new-1';
     $pane = new stdClass;
-    $pane->pid = 'new-28';
-    $pane->panel = 'left';
-    $pane->type = 'category_menu';
-    $pane->subtype = 'category_menu';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'type' => 'news',
-      'context' => array(
-        0 => 'empty',
-        1 => 'empty',
-      ),
-      'override_title' => 1,
-      'override_title_text' => 'Categories',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 1;
-    $pane->locks = array();
-    $display->content['new-28'] = $pane;
-    $display->panels['left'][1] = 'new-28';
-    $pane = new stdClass;
-    $pane->pid = 'new-29';
+    $pane->pid = 'new-2';
     $pane->panel = 'right';
     $pane->type = 'page_title';
     $pane->subtype = 'page_title';
@@ -439,10 +413,10 @@ function ding_library_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $display->content['new-29'] = $pane;
-    $display->panels['right'][0] = 'new-29';
+    $display->content['new-2'] = $pane;
+    $display->panels['right'][0] = 'new-2';
     $pane = new stdClass;
-    $pane->pid = 'new-30';
+    $pane->pid = 'new-3';
     $pane->panel = 'right';
     $pane->type = 'openlayers_map';
     $pane->subtype = 'ding_library_map';
@@ -460,10 +434,10 @@ function ding_library_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 1;
     $pane->locks = array();
-    $display->content['new-30'] = $pane;
-    $display->panels['right'][1] = 'new-30';
+    $display->content['new-3'] = $pane;
+    $display->panels['right'][1] = 'new-3';
     $pane = new stdClass;
-    $pane->pid = 'new-31';
+    $pane->pid = 'new-4';
     $pane->panel = 'right';
     $pane->type = 'views';
     $pane->subtype = 'ding_library';
@@ -493,8 +467,8 @@ function ding_library_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 2;
     $pane->locks = array();
-    $display->content['new-31'] = $pane;
-    $display->panels['right'][2] = 'new-31';
+    $display->content['new-4'] = $pane;
+    $display->panels['right'][2] = 'new-4';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
