@@ -18,9 +18,10 @@ class ding_library_nid_to_gid_argument extends views_handler_argument_numeric {
       // We use try/catch since we get an exception if the node isn't a group.
       try {
         $this->argument = $node_wrapper->group->gid->value();
-      } catch (EntityMetadataWrapperException $e) {
+      }
+      catch (EntityMetadataWrapperException $e) {
         $this->argument = 0;
-      } 
+      }
     }
     parent::query($group_by);
   }

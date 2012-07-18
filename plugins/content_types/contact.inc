@@ -21,7 +21,7 @@ function ding_library_contact_content_type_render($subtype, $conf, $panel_args, 
   if (!empty($node->field_phone['und'])) {
     $content .= '<div class="phone field-label-inline clearfix">
           <div class="field-label">' . t('Phone:') . '</div>
-          <div class="field-items">' . $node->field_phone['und'][0]['value']. '</div></div>';
+          <div class="field-items">' . $node->field_phone['und'][0]['value'] . '</div></div>';
   }
   if (!empty($node->field_email['und'])) {
     $content .= '
@@ -32,7 +32,7 @@ function ding_library_contact_content_type_render($subtype, $conf, $panel_args, 
     ';
   }
   $content .= '</div>';
-  $block->title= t('Contact');
+  $block->title = t('Contact');
   $block->content = $content;
 
   return $block;

@@ -8,18 +8,18 @@
  * Implements hook_menu_alter().
  */
 /*
-function ding_library_menu_menu_alter(&$items) {
-  foreach (module_invoke_all('ding_library_menu_links') as $path_suffix => $item) {
-    $full_path = 'node/%pm_arg/' . $path_suffix;
-    if (isset($items[$full_path]) && isset($item['title'])) {
-      $items[$full_path]['title'] = $item['title'];
-    }
-  }
-  // When the menu structure is being rebuilt, we also want to create
-  // our own links.
-  _ding_libary_menu_rebuild();
-}
-*/
+ function ding_library_menu_menu_alter(&$items) {
+ foreach (module_invoke_all('ding_library_menu_links') as $path_suffix => $item) {
+ $full_path = 'node/%pm_arg/' . $path_suffix;
+ if (isset($items[$full_path]) && isset($item['title'])) {
+ $items[$full_path]['title'] = $item['title'];
+ }
+ }
+ // When the menu structure is being rebuilt, we also want to create
+ // our own links.
+ _ding_libary_menu_rebuild();
+ }
+ */
 /**
  * Implements hook_node_insert().
  */
@@ -115,7 +115,9 @@ function _ding_libary_menu_rebuild() {
       $parent = $existing_links['node/' . $node->nid];
 
       // Don't create parent-less menu links.
-      if (empty($parent)) { continue; }
+      if (empty($parent)) {
+        continue;
+      }
 
       $path = implode('/', $path_parts);
 
