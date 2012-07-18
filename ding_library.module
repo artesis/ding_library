@@ -133,74 +133,104 @@ function ding_library_block_view($delta = '') {
   }
   if ($delta == 'ding_menu') {
     $block['subject'] = t('Main menu');
+
+    $l2_menu = $current_library = $level1_links = $level2_links = array();
+    $main_menu = menu_build_tree('main-menu');
+
     // First level of main menu.
     // We added the i18n_menu module as a dependency in
     // ding_library_update_7003() but we check for the existence to ensure a
     // clean upgrade path.
-    if (module_exists('i18n_menu')) {
-      $links = i18n_menu_navigation_links('main-menu', 0);
+    // TODO: translation generates notices in node_page_title (node.inc, 2075)
+    //if (module_exists('i18n_menu')) {
+    //  $main_menu = i18n_menu_localize_tree($main_menu);
+    //}
+
+    $main_menu = menu_build_tree('main-menu');
+    $active_trail = menu_get_active_trail();
+
+    // Prepare L1 menu, skip hidden items
+    foreach ($main_menu as $index1 => $level1_item) {
+      if (!$level1_item['link']['hidden']) {
+        // Key is used as class when themeing.
+        $level1_links['menu-' . $level1_item['link']['mlid']] = array(
+          'href' => $level1_item['link']['href'],
+          'title' => $level1_item['link']['link_title'],
+        );
+        $l2_menu[$level1_item['link']['mlid']] = $level1_item['below'];
+      }
     }
-    else {
-      $links = menu_navigation_links('main-menu', 0);
+
+    // Find and save the active submenu
+    $l2_ids = array_keys($l2_menu);
+    $parent_item = NULL;
+    foreach ($active_trail as $item) {
+      if (isset($item['plid']) && in_array($item['plid'], $l2_ids)) {
+        $parent_item = $item['plid'];
+      }
+      elseif (isset($item['plid']) && $item['plid'] == 0) {// && $item['module'] == 'ding_library_menu'
+        $parent_item = $item['mlid'];
+      }
+      if ($parent_item) {
+        $current_library['href'] = $level1_links['menu-' . $parent_item]['href'];
+        $current_library['title'] = $level1_links['menu-' . $parent_item]['title'];
+        // Prepare L2 menu, skip hidden items
+        if (is_array($l2_menu[$parent_item])) {
+          foreach ($l2_menu[$parent_item] as $level2_item) {
+            if (!$level2_item['link']['hidden']) {
+              $level2_links['menu-' . $level2_item['link']['mlid']] = array(
+                'href' => $level2_item['link']['href'],
+                'title' => $level2_item['link']['link_title'],
+              );
+            }
+          }
+        }
+        // Set parent as active by changing key to 'active'
+        $level1_keys = join('|', array_keys($level1_links));
+        $level1_keys = str_replace('menu-' . $parent_item, 'active', $level1_keys);
+        $level1_links = array_combine(explode('|', $level1_keys), array_values($level1_links));
+        break;
+      }
     }
 
     // Theme the lot as a list of links.
     $block['content']['main-menu'] = array(
       '#markup' => theme('links__library_menu', array(
-                   'links' => $links,
-                   'heading' => array(
-                     'text' => t('Main menu'),
-                     'level' => 'h2',
-                     'class' => array('element-invisible'),
-                   ),
-                 )),
+        'links' => $level1_links,
+        'heading' => array(
+          'text' => t('Main menu'),
+          'level' => 'h2',
+          'class' => array('element-invisible'),
+        ),
+      )),
       '#prefix' => '<div class="main-menu">',
       '#suffix' => '</div>',
     );
 
-    $trail = menu_get_active_trail();
 
-    // Get the active menu item.
-    $current_item = menu_get_item(menu_tree_get_path('main-menu'));
-    // Find the menu_links for the current item and the libraries menu item.
-    $links = db_select('menu_links', 'ml')
-      ->fields('ml', array('link_path', 'mlid', 'plid', 'p1', 'p2', 'p3'))
-      ->condition('menu_name', 'main-menu')
-      ->condition('link_path', array('libraries', $current_item['href']))
-      ->execute()->fetchAllAssoc('link_path');
-
-    // If p1 (first part of materialised path) is the mlid of the
-    // libraries item, the current item lies below it.
-    // Unless p2 is 0, then we're on the libraries page itself.
-    if (!empty($links['libraries']) && !empty($links[$current_item['href']]) && $links['libraries']->mlid == $links[$current_item['href']]->p1 && $links[$current_item['href']]->p2 != 0) {
-      // Find the library menu item, by using p2.
-      $library = db_select('menu_links', 'ml')
-        ->fields('ml', array('mlid', 'link_path', 'link_title'))
-        ->condition('mlid', $links[$current_item['href']]->p2)
-        ->execute()->fetchAssoc();
+    // And add the library children items.
+    if (count($level2_links)) {
       // Add in the library as the first item of the list.
-      $links = array(
-        'menu-' . $library['mlid'] => array(
-          'href' => $library['link_path'],
-          'title' => t('Frontpage'),
-        ),
+      $level2_links['menu-0'] = array(
+        'href' => $current_library['href'],
+        'title' => t('Frontpage'),
       );
-      // And add the library items children.
-      $links += menu_navigation_links('main-menu', 2);
-      // Theme the lot as a list of links.
+      ksort($level2_links);
+
       $block['content']['library-menu'] = array(
         '#markup' => theme('links__library_menu', array(
-                     'links' => $links,
-                     'heading' => array(
-                       'text' => $library['link_title'],
-                       'level' => 'h2',
-                     ),
-                   )),
+            'links' => $level2_links,
+            'heading' => array(
+              'text' => t('@lib submenu', array('@lib' => $current_library['title'])),
+              'level' => 'h2',
+            ),
+          )),
         '#prefix' => '<div class="library-menu clearfix">',
         '#suffix' => '</div>',
       );
     }
   }
+
   if ($delta == 'ding_sidebar_menu') {
     $trail = menu_get_active_trail();
     if (!empty($trail[1])) {
@@ -346,6 +376,22 @@ function ding_library_views_data_alter(&$data) {
           $data[$name]['ding_library_nid']['argument']['handler'] = 'ding_library_nid_to_gid_argument';
         }
       }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_page()
+ */
+function ding_library_preprocess_page(&$variables) {
+  if (isset($variables['node']) && $variables['node']->type == 'ding_library') {
+    $node = $variables['node'];
+    // Change background only if it was uploaded in the specific field
+    if (!empty($node->field_header_image) && isset($node->field_header_image[LANGUAGE_NONE][0]) && !empty($node->field_header_image[LANGUAGE_NONE][0]['uri'])) {
+      $image = $node->field_header_image[LANGUAGE_NONE][0];
+      drupal_add_css("#zone-header-wrapper.zone-wrapper {
+        background-image: url('" . file_create_url($image['uri']) . "');
+        }", array('type' => 'inline'));
     }
   }
 }
