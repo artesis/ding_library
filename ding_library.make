@@ -18,7 +18,7 @@ projects[email][version] = 1.0
 
 projects[features][type] = module
 projects[features][subdir] = contrib
-projects[features][version] = 1.0-beta4
+projects[features][version] = 1.0-rc3
 
 projects[geocoder][type] = module
 projects[geocoder][subdir] = contrib
