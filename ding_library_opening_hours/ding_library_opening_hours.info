@@ -1,0 +1,7 @@
+core = "7.x"
+dependencies[] = "opening_hours"
+description = "Content structure for local libraries."
+name = "Ding library opening hours"
+package = "Ding!"
+php = "5.2.4"
+version = "7.x-0.1"

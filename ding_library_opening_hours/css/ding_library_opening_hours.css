@@ -1,0 +1,17 @@
+.ding-library-opened-today .library,
+.ding-library-opening-hours .day {
+  overflow: hidden;
+  display: block;
+}
+
+.ding-library-opened-today .library .name,
+.ding-library-opening-hours .day .day-name {
+  display: block;
+  float: left;
+}
+
+.ding-library-opened-today .library .hours,
+.ding-library-opening-hours .day .hours {
+  display: block;
+  float: right;
+}
