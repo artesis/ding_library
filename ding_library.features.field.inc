@@ -58,6 +58,12 @@ function ding_library_field_default_fields() {
           'type' => 'hidden',
           'weight' => '11',
         ),
+        'teaser_highlight' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_address',
@@ -129,6 +135,12 @@ function ding_library_field_default_fields() {
           'type' => 'hidden',
           'weight' => '7',
         ),
+        'teaser_highlight' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_ding_body',
@@ -185,6 +197,12 @@ function ding_library_field_default_fields() {
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '8',
+        ),
+        'teaser_highlight' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'node',
@@ -253,6 +271,12 @@ function ding_library_field_default_fields() {
           'type' => 'hidden',
           'weight' => '9',
         ),
+        'teaser_highlight' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_fax',
@@ -310,6 +334,12 @@ function ding_library_field_default_fields() {
           'type' => 'hidden',
           'weight' => '10',
         ),
+        'teaser_highlight' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_geocode',
@@ -333,7 +363,93 @@ function ding_library_field_default_fields() {
           'geocoder_handler' => 'google',
         ),
         'type' => 'geocoder',
-        'weight' => '15',
+        'weight' => '13',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-ding_library-field_header_image'
+  $fields['node-ding_library-field_header_image'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_header_image',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'module' => 'image',
+      'settings' => array(
+        'default_image' => 0,
+        'profile2_private' => FALSE,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'image',
+    ),
+    'field_instance' => array(
+      'bundle' => 'ding_library',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => '',
+          ),
+          'type' => 'image',
+          'weight' => 14,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser_highlight' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_header_image',
+      'label' => 'Header image',
+      'required' => 0,
+      'settings' => array(
+        'alt_field' => 0,
+        'default_image' => 0,
+        'file_directory' => 'header_image/library',
+        'file_extensions' => 'png gif jpg jpeg',
+        'max_filesize' => '',
+        'max_resolution' => '',
+        'min_resolution' => '',
+        'title_field' => 0,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'image',
+        'settings' => array(
+          'preview_image_style' => 'thumbnail',
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'image_image',
+        'weight' => '8',
       ),
     ),
   );
@@ -385,6 +501,12 @@ function ding_library_field_default_fields() {
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '6',
+        ),
+        'teaser_highlight' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'node',
@@ -444,6 +566,7 @@ function ding_library_field_default_fields() {
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
+        'profile2_private' => FALSE,
         'uri_scheme' => 'public',
       ),
       'translatable' => '0',
@@ -474,6 +597,12 @@ function ding_library_field_default_fields() {
           'type' => 'image',
           'weight' => '0',
         ),
+        'teaser_highlight' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_list_image',
@@ -481,6 +610,7 @@ function ding_library_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'alt_field' => 0,
+        'default_image' => 0,
         'file_directory' => 'list_image/library',
         'file_extensions' => 'png gif jpg jpeg',
         'max_filesize' => '',
@@ -497,7 +627,7 @@ function ding_library_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '9',
+        'weight' => '10',
       ),
     ),
   );
@@ -526,6 +656,7 @@ function ding_library_field_default_fields() {
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
+        'profile2_private' => FALSE,
         'uri_scheme' => 'public',
       ),
       'translatable' => '0',
@@ -552,6 +683,12 @@ function ding_library_field_default_fields() {
           'type' => 'hidden',
           'weight' => '3',
         ),
+        'teaser_highlight' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_main_image',
@@ -559,6 +696,7 @@ function ding_library_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'alt_field' => 0,
+        'default_image' => 0,
         'file_directory' => 'main_image/library',
         'file_extensions' => 'png gif jpg jpeg',
         'max_filesize' => '',
@@ -575,7 +713,7 @@ function ding_library_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '8',
+        'weight' => '9',
       ),
     ),
   );
@@ -624,6 +762,12 @@ function ding_library_field_default_fields() {
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '1',
+        ),
+        'teaser_highlight' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'node',
@@ -693,6 +837,12 @@ function ding_library_field_default_fields() {
           'type' => 'hidden',
           'weight' => '2',
         ),
+        'teaser_highlight' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'field_phone',
@@ -760,6 +910,12 @@ function ding_library_field_default_fields() {
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '4',
+        ),
+        'teaser_highlight' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'node',
@@ -830,6 +986,12 @@ function ding_library_field_default_fields() {
           'type' => 'hidden',
           'weight' => '5',
         ),
+        'teaser_highlight' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
       ),
       'entity_type' => 'node',
       'field_name' => 'group_group',
@@ -870,6 +1032,7 @@ function ding_library_field_default_fields() {
   t('E-mail address');
   t('Fax number');
   t('Geocode');
+  t('Header image');
   t('If enabled, events and news can be marked as related to this library and will show up on its library page.');
   t('Links');
   t('List image');

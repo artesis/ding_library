@@ -22,8 +22,8 @@ function ding_library_update_7001() {
   // Delete menu_block menu, not needed anymore.
   db_delete('block')
     ->condition('module', 'menu_block')
-    ->condition('delta','ding_content-main-lvl1')
-    ->condition('theme',$default_theme)
+    ->condition('delta', 'ding_content-main-lvl1')
+    ->condition('theme', $default_theme)
     ->execute();
   // Delete any left over library_menus.
   db_delete('block')
