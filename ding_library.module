@@ -219,12 +219,12 @@ function ding_library_block_view($delta = '') {
 
       $block['content']['library-menu'] = array(
         '#markup' => theme('links__library_menu', array(
-            'links' => $level2_links,
-            'heading' => array(
-              'text' => t('@lib submenu', array('@lib' => $current_library['title'])),
-              'level' => 'h2',
-            ),
-          )),
+          'links' => $level2_links,
+          'heading' => array(
+            'text' => t('@lib submenu', array('@lib' => $current_library['title'])),
+            'level' => 'h2',
+          ),
+        )),
         '#prefix' => '<div class="library-menu clearfix">',
         '#suffix' => '</div>',
       );
@@ -269,7 +269,7 @@ function ding_library_theme() {
   return array(
     'ding_library_address' => array(
       'render element' => 'element',
-      'template' => 'ding-library-address'
+      'template' => 'ding-library-address',
     ),
   );
 }

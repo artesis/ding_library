@@ -10,11 +10,11 @@
 function ding_library_opening_hours_block_info() {
   return array(
     'ding_library_opening_hours' => array(
-      'info'  => t('Opening hours for this week'),
+      'info' => t('Opening hours for this week'),
       'cache' => DRUPAL_NO_CACHE,
     ),
     'ding_library_opened_today' => array(
-      'info'  => t('Todays opening hours for all libraries'),
+      'info' => t('Todays opening hours for all libraries'),
       'cache' => DRUPAL_NO_CACHE,
     ),
   );
@@ -31,7 +31,7 @@ function ding_library_opening_hours_block_view($delta = '') {
     $block['subject'] = t('Hours');
     $block['content'] = array(
       '#theme' => 'ding_library_opening_hours_view',
-      '#node'  => $node,
+      '#node' => $node,
     );
   }
 
@@ -52,13 +52,13 @@ function ding_library_opening_hours_block_view($delta = '') {
 function ding_library_opening_hours_theme($existing, $type, $theme, $path) {
   return array(
     'ding_library_opening_hours_view' => array(
-      'path'      => $path . '/templates',
-      'template'  => 'ding_library_opening_hours_view',
+      'path' => $path . '/templates',
+      'template' => 'ding_library_opening_hours_view',
       'variables' => array('node' => NULL),
     ),
     'ding_library_opened_today_view' => array(
-      'path'      => $path . '/templates',
-      'template'  => 'ding_library_opened_today_view',
+      'path' => $path . '/templates',
+      'template' => 'ding_library_opened_today_view',
       'variables' => array('libraries' => NULL),
     ),
   );
@@ -70,7 +70,7 @@ function ding_library_opening_hours_theme($existing, $type, $theme, $path) {
 function template_preprocess_ding_library_opening_hours_view(&$vars) {
   $node = $vars['node'];
   // Some minor date manipulations to get the correct range for the block
-  $full_day            = 24*60*60;
+  $full_day            = 24 * 60 * 60;
   $current_date        = time();
   $current_day_of_week = date('w');
   $start_of_week       = $current_date - ($full_day * $current_day_of_week) + 1;
