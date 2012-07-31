@@ -18,7 +18,8 @@ projects[email][version] = 1.0
 
 projects[features][type] = module
 projects[features][subdir] = contrib
-projects[features][version] = 1.0-beta4
+projects[features][version] = 1.0-rc3
+projects[features][patch][] = "http://drupal.org/files/ctool_custom_content-1079440-63.patch"
 
 projects[geocoder][type] = module
 projects[geocoder][subdir] = contrib
@@ -62,7 +63,7 @@ projects[strongarm][version] = 2.0-beta4
 
 projects[views][type] = module
 projects[views][subdir] = contrib
-projects[views][version] = 3.0
+projects[views][version] = 3.3
 
 libraries[openlayers][download][type] = get
 libraries[openlayers][download][url] = http://openlayers.org/download/OpenLayers-2.11.tar.gz
