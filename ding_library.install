@@ -33,16 +33,16 @@ function ding_library_update_7001() {
     ->execute();
   // Add the new ding_menu.
   db_insert('block')->fields(array('module', 'delta', 'theme', 'status', 'weight', 'region', 'pages', 'cache', 'title'))->values(array(
-      'module' => 'ding_library',
-      'delta' => 'ding_menu',
-      'theme' => $default_theme,
-      'status' => 1,
-      'weight' => 1,
-      'region' => 'header',
-      'pages' => '',
-      'cache' => -1,
-      'title' => '<none>',
-    )
+    'module' => 'ding_library',
+    'delta' => 'ding_menu',
+    'theme' => $default_theme,
+    'status' => 1,
+    'weight' => 1,
+    'region' => 'header',
+    'pages' => '',
+    'cache' => -1,
+    'title' => '<none>',
+  )
   )->execute();
   return t('Updated menu block.');
 }
