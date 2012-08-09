@@ -718,78 +718,6 @@ function ding_library_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-ding_library-field_opening_hours'
-  $fields['node-ding_library-field_opening_hours'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_opening_hours',
-      'foreign keys' => array(
-        'format' => array(
-          'columns' => array(
-            'format' => 'format',
-          ),
-          'table' => 'filter_format',
-        ),
-      ),
-      'indexes' => array(
-        'format' => array(
-          0 => 'format',
-        ),
-      ),
-      'module' => 'text',
-      'settings' => array(),
-      'translatable' => '0',
-      'type' => 'text_long',
-    ),
-    'field_instance' => array(
-      'bundle' => 'ding_library',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Write when the library has open and is closed.',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'text',
-          'settings' => array(),
-          'type' => 'text_plain',
-          'weight' => '4',
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '1',
-        ),
-        'teaser_highlight' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_opening_hours',
-      'label' => 'Opening hours',
-      'required' => 0,
-      'settings' => array(
-        'text_processing' => '0',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'text',
-        'settings' => array(
-          'rows' => '5',
-        ),
-        'type' => 'text_textarea',
-        'weight' => '11',
-      ),
-    ),
-  );
-
   // Exported field: 'node-ding_library-field_phone'
   $fields['node-ding_library-field_phone'] = array(
     'field_config' => array(
@@ -1037,12 +965,10 @@ function ding_library_field_default_fields() {
   t('Links');
   t('List image');
   t('Main image');
-  t('Opening hours');
   t('Phone number');
   t('Show related content on library page');
   t('Slug');
   t('The main contact e-mail address for the library.');
-  t('Write when the library has open and is closed.');
 
   return $fields;
 }
