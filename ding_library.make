@@ -32,12 +32,12 @@ projects[geofield][version] = 1.0-alpha5
 
 projects[libraries][type] = module
 projects[libraries][subdir] = contrib
-projects[libraries][version] = 1.0
+projects[libraries][version] = "1.0"
 ;projects[libraries][version] = "2.0"
 
 projects[link][type] = module
 projects[link][subdir] = contrib
-projects[link][version] = 1.0
+projects[link][version] = "1.0"
 
 ; Changed to download as git repository due to failing when applying
 ; patch when version of git is lower than 1.7.5.4 and option working-copy
@@ -55,11 +55,11 @@ projects[openlayers][version] = 2.0-beta1
 
 projects[strongarm][type] = module
 projects[strongarm][subdir] = contrib
-projects[strongarm][version] = 2.0-beta4
+projects[strongarm][version] = "2.0"
 
 projects[views][type] = module
 projects[views][subdir] = contrib
-projects[views][version] = 3.3
+projects[views][version] = "3.3"
 
 libraries[openlayers][download][type] = get
 libraries[openlayers][download][url] = http://openlayers.org/download/OpenLayers-2.11.tar.gz
