@@ -3,7 +3,7 @@ core = 7.x
 
 projects[addressfield][type] = module
 projects[addressfield][subdir] = contrib
-projects[addressfield][version] = 1.0-beta2
+projects[addressfield][version] = 1.0-beta3
 
 projects[cache_actions][type] = module
 projects[cache_actions][subdir] = contrib
