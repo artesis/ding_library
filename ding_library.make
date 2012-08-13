@@ -33,6 +33,7 @@ projects[geofield][version] = 1.0-alpha5
 projects[libraries][type] = module
 projects[libraries][subdir] = contrib
 projects[libraries][version] = 1.0
+;projects[libraries][version] = "2.0"
 
 projects[link][type] = module
 projects[link][subdir] = contrib
