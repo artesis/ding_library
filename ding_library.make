@@ -26,6 +26,10 @@ projects[geocoder][download][type] = git
 projects[geocoder][download][url] = http://git.drupal.org/project/geocoder.git
 projects[geocoder][download][revision] = 4c6801e6f824adbe4d2a5919d09bce454f2c7f2b
 
+projects[geophp][type] = module
+projects[geophp][subdir] = contrib
+projects[geophp][version] = "1.4"
+
 projects[geofield][type] = module
 projects[geofield][subdir] = contrib
 projects[geofield][version] = "1.1"
