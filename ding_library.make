@@ -55,7 +55,7 @@ projects[og][patch][] = http://drupal.org/files/1320778.patch
 
 projects[openlayers][type] = module
 projects[openlayers][subdir] = contrib
-projects[openlayers][version] = 2.0-beta1
+projects[openlayers][version] = "2.0-beta1"
 
 projects[strongarm][type] = module
 projects[strongarm][subdir] = contrib
@@ -69,5 +69,5 @@ libraries[openlayers][download][type] = get
 libraries[openlayers][download][url] = http://openlayers.org/download/OpenLayers-2.11.tar.gz
 
 libraries[openlayers_themes][download][type] = git
-libraries[openlayers_themes][download][url] = git://github.com/developmentseed/openlayers_themes.git
+libraries[openlayers_themes][download][url] = git@github.com:developmentseed/openlayers_themes.git
 
