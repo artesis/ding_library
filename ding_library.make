@@ -28,7 +28,7 @@ projects[geocoder][download][revision] = 4c6801e6f824adbe4d2a5919d09bce454f2c7f2
 
 projects[geofield][type] = module
 projects[geofield][subdir] = contrib
-projects[geofield][version] = 1.0-alpha5
+projects[geofield][version] = "1.1"
 
 projects[libraries][type] = module
 projects[libraries][subdir] = contrib
