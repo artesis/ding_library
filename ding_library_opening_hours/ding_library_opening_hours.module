@@ -128,23 +128,3 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
   $vars['libraries'] = $libraries;
 }
 
-/**
- * Implements hook_menu_alter().
- */
-function ding_library_opening_hours_menu_alter(&$items) {
-  $items['node/%node/opening_hours']['access callback']  = 'ding_library_opening_hours_user_access';
-}
-
-/**
- * Helper function for correct access to opening hours tab.
- */
-function ding_library_opening_hours_user_access($arguments) {
-  $node = arg(1);
-  if (ctype_digit($node)) {
-    $node = node_load($node);
-    $allowed = variable_get('opening_hours_enabled_' . $node->type, FALSE);
-    return (user_access($arguments[0]) && $allowed);
-  }
-
-  return user_access($arguments[0]);
-}
