@@ -112,17 +112,21 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
   $raw_libraries = db_select('node', 'n')
     ->fields('n', array('nid', 'title'))
     ->condition('n.type', 'ding_library')
+    ->condition('n.status', NODE_PUBLISHED)
     ->execute()
     ->fetchAll();
-  foreach ($raw_libraries as $library) {
-    $libraries[$library->nid]['title'] = $library->title;
-  }
 
-  // Get all dates for today
-  $opening_hours = opening_hours_instance_load_multiple(array_keys($libraries), $today, $today);
-  foreach ($opening_hours as $hour) {
-    $libraries[$hour->nid]['start_time'] = $hour->start_time;
-    $libraries[$hour->nid]['end_time'] = $hour->end_time;
+  if (count($raw_libraries)) {
+    foreach ($raw_libraries as $library) {
+      $libraries[$library->nid]['title'] = $library->title;
+    }
+
+    // Get all dates for today
+    $opening_hours = opening_hours_instance_load_multiple(array_keys($libraries), $today, $today);
+    foreach ($opening_hours as $hour) {
+      $libraries[$hour->nid]['start_time'] = $hour->start_time;
+      $libraries[$hour->nid]['end_time'] = $hour->end_time;
+    }
   }
 
   $vars['libraries'] = $libraries;
