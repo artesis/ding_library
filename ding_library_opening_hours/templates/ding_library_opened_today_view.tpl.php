@@ -1,3 +1,4 @@
+<?php if (count($libraries)) :?>
 <ul class="ding-library-opened-today">
   <?php foreach ($libraries as $library) :?>
     <?php if (isset($library['start_time']) && isset($library['end_time'])) :?>
@@ -8,3 +9,6 @@
     <?php endif;?>
   <?php endforeach;?>
 </ul>
+<?php else:?>
+  <?php print t('No content available.'); ?>
+<?php endif;?>
