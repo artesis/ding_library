@@ -19,7 +19,9 @@ function ding_library_init() {
   if (sizeof($args) == 2 && $args[0] == 'node' && $node = menu_get_object()) {
     $types = array(
       'ding_event' => 'events',
-      'ding_news' => 'news',
+      // Currently we don't want news to be necessarily assigned to a library
+      // since it leads to main menu not shown for news without this relationship.
+      // 'ding_news' => 'news',
     );
     if (isset($types[$node->type])) {
       // Check if node is part of a group. Get all groups.
