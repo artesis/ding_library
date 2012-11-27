@@ -15,25 +15,6 @@ function ding_library_init() {
       'weight' => 42,
     ));
   }
-  $args = arg();
-  if (isset($types[$node->type])) {
-    // Check if node is part of a group. Get all groups.
-    if ($groups = og_get_entity_groups('node', $node)) {
-      // Load the first.
-      $group = og_load(array_shift($groups));
-      // The entity_id the group references, is the nid of the library.
-      $library_nid = $group->etid;
-      // Use the nodes path.
-      $path = 'node/' . $library_nid . '/' . $types[$node->type];
-    }
-    else {
-      // Not part of any group, put them under the site list.
-      $path = $types[$node->type];
-    }
-
-    // Set the active path for the main menu.
-    menu_tree_set_path('main-menu', $path);
-  }
 }
 
 /**
