@@ -16,31 +16,23 @@ function ding_library_init() {
     ));
   }
   $args = arg();
-  if (sizeof($args) == 2 && $args[0] == 'node' && $node = menu_get_object()) {
-    $types = array(
-      'ding_event' => 'events',
-      // Currently we don't want news to be necessarily assigned to a library
-      // since it leads to main menu not shown for news without this relationship.
-      // 'ding_news' => 'news',
-    );
-    if (isset($types[$node->type])) {
-      // Check if node is part of a group. Get all groups.
-      if ($groups = og_get_entity_groups('node', $node)) {
-        // Load the first.
-        $group = og_load(array_shift($groups));
-        // The entity_id the group references, is the nid of the library.
-        $library_nid = $group->etid;
-        // Use the nodes path.
-        $path = 'node/' . $library_nid . '/' . $types[$node->type];
-      }
-      else {
-        // Not part of any group, put them under the site list.
-        $path = $types[$node->type];
-      }
-
-      // Set the active path for the main menu.
-      menu_tree_set_path('main-menu', $path);
+  if (isset($types[$node->type])) {
+    // Check if node is part of a group. Get all groups.
+    if ($groups = og_get_entity_groups('node', $node)) {
+      // Load the first.
+      $group = og_load(array_shift($groups));
+      // The entity_id the group references, is the nid of the library.
+      $library_nid = $group->etid;
+      // Use the nodes path.
+      $path = 'node/' . $library_nid . '/' . $types[$node->type];
     }
+    else {
+      // Not part of any group, put them under the site list.
+      $path = $types[$node->type];
+    }
+
+    // Set the active path for the main menu.
+    menu_tree_set_path('main-menu', $path);
   }
 }
 
