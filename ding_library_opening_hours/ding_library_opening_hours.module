@@ -118,7 +118,7 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
 
   if (count($raw_libraries)) {
     foreach ($raw_libraries as $library) {
-      $libraries[$library->nid]['title'] = $library->title;
+      $libraries[$library->nid]['title'] = l($library->title, 'node/' . $library->nid);
     }
 
     // Get all dates for today
