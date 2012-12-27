@@ -10,7 +10,7 @@
 function ding_library_openlayers_maps() {
   $export = array();
 
-  $openlayers_maps = new stdClass;
+  $openlayers_maps = new stdClass();
   $openlayers_maps->disabled = FALSE; /* Edit this to true to make a default openlayers_maps disabled initially */
   $openlayers_maps->api_version = 1;
   $openlayers_maps->name = 'ding_library_map';
@@ -80,4 +80,23 @@ function ding_library_openlayers_maps() {
   $export['ding_library_map'] = $openlayers_maps;
 
   return $export;
+}
+
+/**
+ * Implements hook_openlayers_map_preprocess_alter().
+ */
+function ding_library_openlayers_map_preprocess_alter(&$map) {
+  if (arg(0) != 'node' || !is_numeric(arg(1))) {
+    return;
+  }
+
+  $node = node_load(arg(1));
+  $centerpoint = $node->field_geocode['und'][0]['lon'] . ', ' . $node->field_geocode['und'][0]['lat'];
+
+  $map['center'] = array(
+    'initial' => array(
+      'centerpoint' => $centerpoint,
+      'zoom' => '12',
+    ),
+  );
 }
