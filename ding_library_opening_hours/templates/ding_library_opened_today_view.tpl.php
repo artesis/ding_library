@@ -1,12 +1,14 @@
 <?php if (count($libraries)) :?>
 <ul class="ding-library-opened-today">
   <?php foreach ($libraries as $library) :?>
-    <?php if (isset($library['start_time']) && isset($library['end_time'])) :?>
       <li class="library">
         <div class="name"><?php print $library['title'];?></div>
-        <div class="hours"><?php print $library['start_time']; ?> - <?php print $library['end_time'];?></div>
+        <?php if (isset($library['start_time']) && isset($library['end_time'])) :?>
+          <div class="hours"><?php print $library['start_time']; ?> - <?php print $library['end_time'];?></div>
+        <?php else:?>
+          <div class="hours"><?php print t('Closed'); ?></div>
+        <?php endif;?>
       </li>
-    <?php endif;?>
   <?php endforeach;?>
 </ul>
 <?php else:?>
