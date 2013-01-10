@@ -355,20 +355,4 @@ function ding_library_views_data_alter(&$data) {
   }
 }
 
-/**
- * Implements hook_preprocess_page()
- */
-function ding_library_preprocess_page(&$variables) {
-  if (isset($variables['node']) && $variables['node']->type == 'ding_library') {
-    $node = $variables['node'];
-    // Change background only if it was uploaded in the specific field
-    if (!empty($node->field_header_image) && isset($node->field_header_image[LANGUAGE_NONE][0]) && !empty($node->field_header_image[LANGUAGE_NONE][0]['uri'])) {
-      $image = $node->field_header_image[LANGUAGE_NONE][0];
-      drupal_add_css("#zone-header-wrapper.zone-wrapper {
-        background-image: url('" . file_create_url($image['uri']) . "');
-        }", array('type' => 'inline'));
-    }
-  }
-}
-
 include_once('ding_library.features.inc');
