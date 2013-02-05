@@ -29,6 +29,11 @@
    */
   function expandMap () {
     resizeMap(450);
+
+    // Scroll to the map.
+    $('html, body').animate({
+      scrollTop: mapContainer.offset().top
+    }, 'fast');
   }
 
   /**
@@ -61,7 +66,7 @@
             title = $.trim(library.find('.title').text());
 
         if (markerIDMap.hasOwnProperty(title)) {
-          $('<a href="#ding-library-page">' + Drupal.t('Show on map') + '</a>')
+          $('<div class="openlayers-show-on-map"><a href="#ding-library-page">' + Drupal.t('Show on map') + '</a><div>')
             .click(function (evt) {
               goToMarker(markerIDMap[title]);
               evt.preventDefault();
