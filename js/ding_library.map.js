@@ -66,12 +66,11 @@
             title = $.trim(library.find('.title').text());
 
         if (markerIDMap.hasOwnProperty(title)) {
-          $('<div class="openlayers-show-on-map"><a href="#ding-library-page">' + Drupal.t('Show on map') + '</a><div>')
-            .click(function (evt) {
+          var elem = '<div class="openlayers-show-on-map"><a href="#ding-library-page">' + Drupal.t('Show on map') + '</a></div>';
+          $(elem).click(function (evt) {
               goToMarker(markerIDMap[title]);
               evt.preventDefault();
-            })
-            .appendTo(library.find('.address'));
+            }).appendTo(library.find('.address'));
         }
       });
     }
