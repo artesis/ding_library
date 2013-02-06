@@ -47,7 +47,7 @@
     expandMap();
   }
 
-  $(function () {
+  $(document).ready(function () {
     var page = $('.page-libraries');
 
     // Get the map instance so we can bind events on it.
