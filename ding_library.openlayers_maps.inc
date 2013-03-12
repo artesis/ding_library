@@ -96,7 +96,7 @@ function ding_library_openlayers_map_preprocess_alter(&$map) {
   $map['center'] = array(
     'initial' => array(
       'centerpoint' => $centerpoint,
-      'zoom' => '12',
+      'zoom' => '16',
     ),
   );
 }
