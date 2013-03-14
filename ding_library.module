@@ -354,4 +354,14 @@ function ding_library_views_data_alter(&$data) {
   }
 }
 
+/**
+ * Implements hook_og_audience_options_alter().
+ * We need this to bypass any group membership checks for any users to allow
+ * them posting events/news to any library.
+ */
+function ding_library_og_audience_options_alter(&$options, &$opt_group, $account) {
+  // Expose all active groups to the user.
+  $options['content groups'] = og_get_all_group();
+}
+
 include_once('ding_library.features.inc');
