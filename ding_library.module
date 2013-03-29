@@ -117,7 +117,7 @@ function ding_library_block_view($delta = '') {
     // clean upgrade path.
     // TODO: translation generates notices in node_page_title (node.inc, 2075)
     //if (module_exists('i18n_menu')) {
-//  $main_menu = i18n_menu_localize_tree($main_menu);
+    //  $main_menu = i18n_menu_localize_tree($main_menu);
     //}
 
     $main_menu = menu_build_tree('main-menu');

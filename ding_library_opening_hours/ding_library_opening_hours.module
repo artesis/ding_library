@@ -92,7 +92,7 @@ function template_preprocess_ding_library_opening_hours_view(&$vars) {
   $opening_hours = opening_hours_instance_load_multiple($node->nid, $start_date, $end_date);
   foreach ($opening_hours as $instance) {
     if (isset($days[$instance->date]['day_name'])) {
-      $days[$instance->date]['end_time']   = $instance->end_time;
+      $days[$instance->date]['end_time'] = $instance->end_time;
       $days[$instance->date]['start_time'] = $instance->start_time;
     }
   }
