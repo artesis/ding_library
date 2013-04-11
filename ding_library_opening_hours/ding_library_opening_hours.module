@@ -10,11 +10,11 @@
 function ding_library_opening_hours_block_info() {
   return array(
     'ding_library_opening_hours' => array(
-      'info' => t('Opening hours for this week'),
+      'info' => t('Ding: Opening hours for this week'),
       'cache' => DRUPAL_NO_CACHE,
     ),
     'ding_library_opened_today' => array(
-      'info' => t('Todays opening hours for all libraries'),
+      'info' => t("Ding: Today's opening hours for all libraries"),
       'cache' => DRUPAL_NO_CACHE,
     ),
   );
