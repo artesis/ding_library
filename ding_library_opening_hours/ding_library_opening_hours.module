@@ -10,11 +10,11 @@
 function ding_library_opening_hours_block_info() {
   return array(
     'ding_library_opening_hours' => array(
-      'info' => t('Opening hours for this week'),
+      'info' => t('Ding: Opening hours for this week'),
       'cache' => DRUPAL_NO_CACHE,
     ),
     'ding_library_opened_today' => array(
-      'info' => t('Todays opening hours for all libraries'),
+      'info' => t("Ding: Today's opening hours for all libraries"),
       'cache' => DRUPAL_NO_CACHE,
     ),
   );
@@ -92,7 +92,7 @@ function template_preprocess_ding_library_opening_hours_view(&$vars) {
   $opening_hours = opening_hours_instance_load_multiple($node->nid, $start_date, $end_date);
   foreach ($opening_hours as $instance) {
     if (isset($days[$instance->date]['day_name'])) {
-      $days[$instance->date]['end_time']   = $instance->end_time;
+      $days[$instance->date]['end_time'] = $instance->end_time;
       $days[$instance->date]['start_time'] = $instance->start_time;
     }
   }
