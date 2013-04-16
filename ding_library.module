@@ -207,14 +207,11 @@ function ding_library_block_view($delta = '') {
 
   if ($delta == 'ding_sidebar_menu') {
     $trail = menu_get_active_trail();
+
     if (!empty($trail[1])) {
       $tree = menu_tree_page_data($trail[1]['menu_name']);
-      $level = 1;
-      // If we have at least 3 levels in the trail and the second item is
-      // libraries, we're inside the library 'subsite'.
-      if (!empty($trail[1]) && !empty($trail[2]) && $trail[1]['router_path'] == 'libraries') {
-        $level = 3;
-      }
+      $level = count($trail);
+
       // Logic borrowed from menu_navigation_links();
       while ($level-- && $tree) {
         // Loop through the current level's items until we find one that is in trail.
@@ -222,7 +219,7 @@ function ding_library_block_view($delta = '') {
           if ($item['link']['in_active_trail']) {
             // If the item is in the active trail, we continue in the subtree.
             $tree = empty($item['below']) ? array() : $item['below'];
-            break;
+            break(2);
           }
         }
       }
