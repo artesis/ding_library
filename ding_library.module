@@ -356,4 +356,23 @@ function ding_library_og_audience_options_alter(&$options, &$opt_group, $account
   $options['content groups'] = og_get_all_group();
 }
 
+/**
+ * Implements hook_panels_post_render().
+ */
+function ding_library_panels_post_render($display) {
+  // Add custom js to Ding library node page.
+  $is_node_page = strpos($display->cache_key, 'panel_context:node_view:node_view_panel_') !== FALSE;
+  $is_ding_library = FALSE;
+  if (!empty($display->context['argument_entity_id:node_1']->data->type)) {
+    $is_ding_library = $display->context['argument_entity_id:node_1']->data->type == 'ding_library';
+  }
+
+  if ($is_node_page && $is_ding_library) {
+    drupal_add_js(
+      drupal_get_path('module', 'ding_library') . '/js/ding_library.node_map.js',
+      array('scope' => 'footer')
+    );
+  }
+}
+
 include_once('ding_library.features.inc');

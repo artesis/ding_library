@@ -63,15 +63,22 @@
 
       page.find('.library-list .views-row').each(function (index, Element) {
         var library = $(this),
-            title = $.trim(library.find('.title').text());
+            title = $.trim(library.find('.title').text()),
+            address = $.trim(library.find('.street-block').text());
 
-        if (markerIDMap.hasOwnProperty(title)) {
+        if (markerIDMap.hasOwnProperty(title) && address != "") {
           var elem = '<div class="openlayers-show-on-map"><a href="#ding-library-page">' + Drupal.t('Show on map') + '</a></div>';
           $(elem).click(function (evt) {
               goToMarker(markerIDMap[title]);
               evt.preventDefault();
             }).appendTo(library.find('.address'));
         }
+
+        // Remove marker for emptry address.
+        if (address == "") {
+          markerLayer.features[markerIDMap[title]].destroy();
+        }
+
       });
     }
   });
