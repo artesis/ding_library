@@ -356,6 +356,9 @@ function ding_library_og_audience_options_alter(&$options, &$opt_group, $account
   $options['content groups'] = og_get_all_group();
 }
 
+/**
+ * Implements hook_panels_post_render().
+ */
 function ding_library_panels_post_render($display) {
   // Add custom js to Ding library node page.
   $is_node_page = strpos($display->cache_key, 'panel_context:node_view:node_view_panel_') !== FALSE;
