@@ -207,23 +207,15 @@ function ding_library_block_view($delta = '') {
 
   if ($delta == 'ding_sidebar_menu') {
     $trail = menu_get_active_trail();
+
     if (!empty($trail[1])) {
       $tree = menu_tree_page_data($trail[1]['menu_name']);
-      $level = 1;
-      // If we have at least 3 levels in the trail and the second item is
-      // libraries, we're inside the library 'subsite'.
-      if (!empty($trail[1]) && !empty($trail[2]) && $trail[1]['router_path'] == 'libraries') {
-        $level = 3;
-      }
-      // Logic borrowed from menu_navigation_links();
-      while ($level-- && $tree) {
-        // Loop through the current level's items until we find one that is in trail.
-        while ($item = array_shift($tree)) {
-          if ($item['link']['in_active_trail']) {
-            // If the item is in the active trail, we continue in the subtree.
-            $tree = empty($item['below']) ? array() : $item['below'];
-            break;
-          }
+
+      foreach ($tree as $item) {
+        if ($item['link']['in_active_trail']) {
+          // If the item is in the active trail, we continue in the subtree.
+          $tree = empty($item['below']) ? array() : $item['below'];
+          break;
         }
       }
 
@@ -362,6 +354,25 @@ function ding_library_views_data_alter(&$data) {
 function ding_library_og_audience_options_alter(&$options, &$opt_group, $account) {
   // Expose all active groups to the user.
   $options['content groups'] = og_get_all_group();
+}
+
+/**
+ * Implements hook_panels_post_render().
+ */
+function ding_library_panels_post_render($display) {
+  // Add custom js to Ding library node page.
+  $is_node_page = strpos($display->cache_key, 'panel_context:node_view:node_view_panel_') !== FALSE;
+  $is_ding_library = FALSE;
+  if (!empty($display->context['argument_entity_id:node_1']->data->type)) {
+    $is_ding_library = $display->context['argument_entity_id:node_1']->data->type == 'ding_library';
+  }
+
+  if ($is_node_page && $is_ding_library) {
+    drupal_add_js(
+      drupal_get_path('module', 'ding_library') . '/js/ding_library.node_map.js',
+      array('scope' => 'footer')
+    );
+  }
 }
 
 include_once('ding_library.features.inc');
