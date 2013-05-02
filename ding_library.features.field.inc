@@ -10,7 +10,7 @@
 function ding_library_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-ding_library-field_address'
+  // Exported field: 'node-ding_library-field_address'.
   $fields['node-ding_library-field_address'] = array(
     'field_config' => array(
       'active' => '1',
@@ -20,6 +20,7 @@ function ding_library_field_default_fields() {
       'field_name' => 'field_address',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'addressfield',
       'settings' => array(),
       'translatable' => '0',
@@ -53,10 +54,16 @@ function ding_library_field_default_fields() {
           'weight' => '0',
         ),
         'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '11',
+          'label' => 'hidden',
+          'module' => 'addressfield',
+          'settings' => array(
+            'format_handlers' => array(
+              0 => 'address',
+            ),
+            'use_widget_handlers' => 1,
+          ),
+          'type' => 'addressfield_default',
+          'weight' => '1',
         ),
         'teaser_highlight' => array(
           'label' => 'above',
@@ -90,7 +97,7 @@ function ding_library_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-ding_library-field_ding_body'
+  // Exported field: 'node-ding_library-field_ding_body'.
   $fields['node-ding_library-field_ding_body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -111,6 +118,7 @@ function ding_library_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -164,7 +172,7 @@ function ding_library_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-ding_library-field_email'
+  // Exported field: 'node-ding_library-field_email'.
   $fields['node-ding_library-field_email'] = array(
     'field_config' => array(
       'active' => '1',
@@ -174,6 +182,7 @@ function ding_library_field_default_fields() {
       'field_name' => 'field_email',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'email',
       'settings' => array(),
       'translatable' => '0',
@@ -224,7 +233,7 @@ function ding_library_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-ding_library-field_fax'
+  // Exported field: 'node-ding_library-field_fax'.
   $fields['node-ding_library-field_fax'] = array(
     'field_config' => array(
       'active' => '1',
@@ -245,6 +254,7 @@ function ding_library_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '255',
@@ -298,7 +308,7 @@ function ding_library_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-ding_library-field_geocode'
+  // Exported field: 'node-ding_library-field_geocode'.
   $fields['node-ding_library-field_geocode'] = array(
     'field_config' => array(
       'active' => '1',
@@ -308,6 +318,7 @@ function ding_library_field_default_fields() {
       'field_name' => 'field_geocode',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'geofield',
       'settings' => array(),
       'translatable' => '0',
@@ -368,7 +379,7 @@ function ding_library_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-ding_library-field_links'
+  // Exported field: 'node-ding_library-field_links'.
   $fields['node-ding_library-field_links'] = array(
     'field_config' => array(
       'active' => '1',
@@ -378,6 +389,7 @@ function ding_library_field_default_fields() {
       'field_name' => 'field_links',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -456,7 +468,7 @@ function ding_library_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-ding_library-field_list_image'
+  // Exported field: 'node-ding_library-field_list_image'.
   $fields['node-ding_library-field_list_image'] = array(
     'field_config' => array(
       'active' => '1',
@@ -477,6 +489,7 @@ function ding_library_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
@@ -535,8 +548,16 @@ function ding_library_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'image',
+        'module' => 'media',
         'settings' => array(
+          'allowed_schemes' => array(
+            0 => 'public',
+            1 => 'private',
+          ),
+          'allowed_types' => array(
+            0 => 'image',
+          ),
+          'browser_plugins' => array(),
           'preview_image_style' => 'thumbnail',
           'progress_indicator' => 'throbber',
         ),
@@ -546,7 +567,7 @@ function ding_library_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-ding_library-field_main_image'
+  // Exported field: 'node-ding_library-field_main_image'.
   $fields['node-ding_library-field_main_image'] = array(
     'field_config' => array(
       'active' => '1',
@@ -567,6 +588,7 @@ function ding_library_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
@@ -621,8 +643,16 @@ function ding_library_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'image',
+        'module' => 'media',
         'settings' => array(
+          'allowed_schemes' => array(
+            0 => 'public',
+            1 => 'private',
+          ),
+          'allowed_types' => array(
+            0 => 'image',
+          ),
+          'browser_plugins' => array(),
           'preview_image_style' => 'thumbnail',
           'progress_indicator' => 'throbber',
         ),
@@ -632,7 +662,7 @@ function ding_library_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-ding_library-field_phone'
+  // Exported field: 'node-ding_library-field_phone'.
   $fields['node-ding_library-field_phone'] = array(
     'field_config' => array(
       'active' => '1',
@@ -653,6 +683,7 @@ function ding_library_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '255',
@@ -706,7 +737,7 @@ function ding_library_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-ding_library-field_slug'
+  // Exported field: 'node-ding_library-field_slug'.
   $fields['node-ding_library-field_slug'] = array(
     'field_config' => array(
       'active' => '1',
@@ -727,6 +758,7 @@ function ding_library_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '255',
@@ -780,7 +812,7 @@ function ding_library_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-ding_library-group_group'
+  // Exported field: 'node-ding_library-group_group'.
   $fields['node-ding_library-group_group'] = array(
     'field_config' => array(
       'active' => '1',
@@ -794,6 +826,7 @@ function ding_library_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'no_ui' => TRUE,
       'settings' => array(
