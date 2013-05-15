@@ -215,6 +215,20 @@ function ding_library_block_view($delta = '') {
         if ($item['link']['in_active_trail']) {
           // If the item is in the active trail, we continue in the subtree.
           $tree = empty($item['below']) ? array() : $item['below'];
+
+          // Library content type behavior.
+          // Check if the current page is a library and show only links below it.
+          if (!empty($tree)) {
+              foreach ($tree as $item) {
+                  if ($item['link']['in_active_trail']) {
+                      $node = menu_get_object();
+                      if ($node->type == 'ding_library') {
+                          $tree = $item['below'];
+                          break;
+                      }
+                  }
+              }
+          }
           break;
         }
       }
@@ -372,6 +386,23 @@ function ding_library_panels_post_render($display) {
       drupal_get_path('module', 'ding_library') . '/js/ding_library.node_map.js',
       array('scope' => 'footer')
     );
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ * Extend panel block's classes.
+ */
+function ding_library_preprocess_panels_pane(&$vars) {
+  if ($vars['pane']->type != 'block') {
+    return;
+  }
+
+  if (in_array('pane-ding-library-ding-sidebar-menu', $vars['classes_array'])) {
+    $trail = menu_get_active_trail();
+    $tree = menu_tree_page_data($trail[1]['menu_name']);
+    $class = $trail[1]['menu_name'] . '-' . $trail[1]['mlid'];
+    $vars['classes_array'][] = $class;
   }
 }
 
