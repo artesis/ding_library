@@ -117,7 +117,7 @@ function ding_library_block_view($delta = '') {
     // clean upgrade path.
     // TODO: translation generates notices in node_page_title (node.inc, 2075)
     //if (module_exists('i18n_menu')) {
-//  $main_menu = i18n_menu_localize_tree($main_menu);
+    //  $main_menu = i18n_menu_localize_tree($main_menu);
     //}
 
     $main_menu = menu_build_tree('main-menu');
@@ -207,23 +207,29 @@ function ding_library_block_view($delta = '') {
 
   if ($delta == 'ding_sidebar_menu') {
     $trail = menu_get_active_trail();
+
     if (!empty($trail[1])) {
       $tree = menu_tree_page_data($trail[1]['menu_name']);
-      $level = 1;
-      // If we have at least 3 levels in the trail and the second item is
-      // libraries, we're inside the library 'subsite'.
-      if (!empty($trail[1]) && !empty($trail[2]) && $trail[1]['router_path'] == 'libraries') {
-        $level = 3;
-      }
-      // Logic borrowed from menu_navigation_links();
-      while ($level-- && $tree) {
-        // Loop through the current level's items until we find one that is in trail.
-        while ($item = array_shift($tree)) {
-          if ($item['link']['in_active_trail']) {
-            // If the item is in the active trail, we continue in the subtree.
-            $tree = empty($item['below']) ? array() : $item['below'];
-            break;
+
+      foreach ($tree as $item) {
+        if ($item['link']['in_active_trail']) {
+          // If the item is in the active trail, we continue in the subtree.
+          $tree = empty($item['below']) ? array() : $item['below'];
+
+          // Library content type behavior.
+          // Check if the current page is a library and show only links below it.
+          if (!empty($tree)) {
+              foreach ($tree as $item) {
+                  if ($item['link']['in_active_trail']) {
+                      $node = menu_get_object();
+                      if ($node->type == 'ding_library') {
+                          $tree = $item['below'];
+                          break;
+                      }
+                  }
+              }
           }
+          break;
         }
       }
 
@@ -362,6 +368,42 @@ function ding_library_views_data_alter(&$data) {
 function ding_library_og_audience_options_alter(&$options, &$opt_group, $account) {
   // Expose all active groups to the user.
   $options['content groups'] = og_get_all_group();
+}
+
+/**
+ * Implements hook_panels_post_render().
+ */
+function ding_library_panels_post_render($display) {
+  // Add custom js to Ding library node page.
+  $is_node_page = strpos($display->cache_key, 'panel_context:node_view:node_view_panel_') !== FALSE;
+  $is_ding_library = FALSE;
+  if (!empty($display->context['argument_entity_id:node_1']->data->type)) {
+    $is_ding_library = $display->context['argument_entity_id:node_1']->data->type == 'ding_library';
+  }
+
+  if ($is_node_page && $is_ding_library) {
+    drupal_add_js(
+      drupal_get_path('module', 'ding_library') . '/js/ding_library.node_map.js',
+      array('scope' => 'footer')
+    );
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ * Extend panel block's classes.
+ */
+function ding_library_preprocess_panels_pane(&$vars) {
+  if ($vars['pane']->type != 'block') {
+    return;
+  }
+
+  if (in_array('pane-ding-library-ding-sidebar-menu', $vars['classes_array'])) {
+    $trail = menu_get_active_trail();
+    $tree = menu_tree_page_data($trail[1]['menu_name']);
+    $class = $trail[1]['menu_name'] . '-' . $trail[1]['mlid'];
+    $vars['classes_array'][] = $class;
+  }
 }
 
 include_once('ding_library.features.inc');

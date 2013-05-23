@@ -38,7 +38,7 @@ function ding_library_views_api() {
 function ding_library_image_default_styles() {
   $styles = array();
 
-  // Exported image style: ding_library_about
+  // Exported image style: ding_library_about.
   $styles['ding_library_about'] = array(
     'name' => 'ding_library_about',
     'effects' => array(
@@ -61,7 +61,7 @@ function ding_library_image_default_styles() {
     ),
   );
 
-  // Exported image style: ding_library_header
+  // Exported image style: ding_library_header.
   $styles['ding_library_header'] = array(
     'name' => 'ding_library_header',
     'effects' => array(
@@ -83,7 +83,7 @@ function ding_library_image_default_styles() {
     ),
   );
 
-  // Exported image style: ding_library_list
+  // Exported image style: ding_library_list.
   $styles['ding_library_list'] = array(
     'name' => 'ding_library_list',
     'effects' => array(
@@ -102,6 +102,28 @@ function ding_library_image_default_styles() {
           'upscale' => 0,
         ),
         'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported image style: ding_library_list_w_190_h_140.
+  $styles['ding_library_list_w_190_h_140'] = array(
+    'name' => 'ding_library_list_w_190_h_140',
+    'effects' => array(
+      1 => array(
+        'label' => 'Resize',
+        'help' => 'Resizing will make images an exact set of dimensions. This may cause images to be stretched or shrunk disproportionately.',
+        'effect callback' => 'image_resize_effect',
+        'dimensions callback' => 'image_resize_dimensions',
+        'form callback' => 'image_resize_form',
+        'summary theme' => 'image_resize_summary',
+        'module' => 'image',
+        'name' => 'image_resize',
+        'data' => array(
+          'width' => '190',
+          'height' => '140',
+        ),
+        'weight' => '1',
       ),
     ),
   );
