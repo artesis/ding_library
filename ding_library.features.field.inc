@@ -831,8 +831,8 @@ function ding_library_field_default_fields() {
       'no_ui' => TRUE,
       'settings' => array(
         'allowed_values' => array(
-          0 => t('Hide related content on library page'),
-          1 => t('Show related content on library page'),
+          0 => 'Hide related content on library page',
+          1 => 'Vis relateret indhold på lokalbibliotekssiden',
         ),
         'allowed_values_function' => '',
       ),
@@ -870,7 +870,7 @@ function ding_library_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'group_group',
-      'label' => t('Show related content on library page'),
+      'label' => 'Vis relateret indhold på lokalbibliotekssiden',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -907,15 +907,14 @@ function ding_library_field_default_fields() {
   t('E-mail address');
   t('Fax number');
   t('Geocode');
-  t('Header image');
   t('If enabled, events and news can be marked as related to this library and will show up on its library page.');
   t('Links');
   t('List image');
   t('Main image');
   t('Phone number');
-  t('Show related content on library page');
   t('Slug');
   t('The main contact e-mail address for the library.');
+  t('Vis relateret indhold på lokalbibliotekssiden');
 
   return $fields;
 }

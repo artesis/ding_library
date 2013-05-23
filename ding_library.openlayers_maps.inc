@@ -19,12 +19,13 @@ function ding_library_openlayers_maps() {
   $openlayers_maps->data = array(
     'width' => 'auto',
     'height' => '225px',
+    'image_path' => '',
     'css_path' => '',
     'proxy_host' => '',
     'hide_empty_map' => 0,
     'center' => array(
       'initial' => array(
-        'centerpoint' => '12.543640136217, 55.68726232509',
+        'centerpoint' => '11.944888307677, 55.96918548855',
         'zoom' => '12',
       ),
       'restrict' => array(
@@ -33,20 +34,21 @@ function ding_library_openlayers_maps() {
       ),
     ),
     'behaviors' => array(
-      'openlayers_behavior_tooltip' => array(
-        'layers' => array(
-          'ding_library_openlayers_1' => 'ding_library_openlayers_1',
-        ),
-      ),
       'openlayers_behavior_fullscreen' => array(
         'activated' => 0,
       ),
       'openlayers_behavior_keyboarddefaults' => array(),
       'openlayers_behavior_navigation' => array(
         'zoomWheelEnabled' => 1,
+        'zoomBoxEnabled' => 1,
         'documentDrag' => 0,
       ),
       'openlayers_behavior_panzoom' => array(),
+      'openlayers_behavior_tooltip' => array(
+        'layers' => array(
+          'ding_library_openlayers_1' => 'ding_library_openlayers_1',
+        ),
+      ),
     ),
     'default_layer' => 'osm_mapnik',
     'layers' => array(
@@ -55,19 +57,28 @@ function ding_library_openlayers_maps() {
     ),
     'layer_weight' => array(
       'ding_library_openlayers_1' => '0',
+      'openlayers_geojson_picture_this' => '0',
       'geofield_formatter' => '0',
     ),
     'layer_styles' => array(
       'geofield_formatter' => '0',
+      'openlayers_geojson_picture_this' => '0',
+      'ding_library_openlayers_1' => '0',
+    ),
+    'layer_styles_select' => array(
+      'geofield_formatter' => '0',
+      'openlayers_geojson_picture_this' => '0',
       'ding_library_openlayers_1' => '0',
     ),
     'layer_activated' => array(
       'ding_library_openlayers_1' => 'ding_library_openlayers_1',
       'geofield_formatter' => 0,
+      'openlayers_geojson_picture_this' => 0,
     ),
     'layer_switcher' => array(
-      'geofield_formatter' => 0,
       'ding_library_openlayers_1' => 0,
+      'geofield_formatter' => 0,
+      'openlayers_geojson_picture_this' => 0,
     ),
     'projection' => '900913',
     'displayProjection' => '4326',
@@ -80,23 +91,4 @@ function ding_library_openlayers_maps() {
   $export['ding_library_map'] = $openlayers_maps;
 
   return $export;
-}
-
-/**
- * Implements hook_openlayers_map_preprocess_alter().
- */
-function ding_library_openlayers_map_preprocess_alter(&$map) {
-  if (arg(0) != 'node' || !is_numeric(arg(1))) {
-    return;
-  }
-
-  $node = node_load(arg(1));
-  $centerpoint = $node->field_geocode['und'][0]['lon'] . ', ' . $node->field_geocode['und'][0]['lat'];
-
-  $map['center'] = array(
-    'initial' => array(
-      'centerpoint' => $centerpoint,
-      'zoom' => '16',
-    ),
-  );
 }

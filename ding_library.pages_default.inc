@@ -367,7 +367,7 @@ function ding_library_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = 'Libraries';
+  $display->title = 'Biblioteker';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
