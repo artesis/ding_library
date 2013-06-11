@@ -7,6 +7,8 @@
 
 /**
  * Implements hook_page_build().
+ *
+ * @todo Remove this crap when Opening Hours has valid markup.
  */
 function ding_library_page_build(&$page) {
   if ($page['#type']=='page' && isset($page['content']['system_main']['content']['#markup'])) {
