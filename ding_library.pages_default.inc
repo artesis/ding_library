@@ -430,6 +430,7 @@ function ding_library_default_page_manager_pages() {
       ),
       'override_title' => 1,
       'override_title_text' => '',
+      'ding_campaign_image_style' => 'ding_campaign_w_380',
     );
     $pane->cache = array();
     $pane->style = array(
