@@ -10,8 +10,8 @@
  */
 function ding_library_page_build(&$page) {
   if ($page['#type']=='page' && isset($page['content']['system_main']['content']['#markup'])) {
-    $page['content']['system_main']['content']['#markup'] .= '<div id="prev" style="visibility:hidden;">Helper Content Previous!</div>';
-    $page['content']['system_main']['content']['#markup'] .= '<div id="next" style="visibility:hidden;">Helper Content Next!</div>';
+    $page['content']['system_main']['content']['#markup'] .= '<div id="prev" style="display:none;">Helper Content Previous!</div>';
+    $page['content']['system_main']['content']['#markup'] .= '<div id="next" style="display:none;">Helper Content Next!</div>';
   }
 }
 
