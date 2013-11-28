@@ -271,29 +271,46 @@ function template_preprocess_ding_library_address(&$vars) {
   );
 
   if ($node) {
-    $languages = field_language('node', $node);
-    $vars['name'] = check_plain($node->title);
-    if (!empty($node->field_address[$languages['field_address']][0]) && ($address = $node->field_address[$languages['field_address']][0])) {
-      $vars['address'] = check_plain($address['thoroughfare']);
-      if ($address['premise']) {
-        $vars['address'] .= ', ' . $address['premise'];
-      }
-      $vars['city'] = join(' ', array(check_plain($address['postal_code']), check_plain($address['locality'])));
-    }
-
-    if (!empty($node->field_phone[$languages['field_phone']][0]) &&
-      ($phone = $node->field_phone[$languages['field_phone']][0]['safe_value'])) {
-      $vars['phone'] = t('Phone: @phone_number', array('@phone_number' => $phone));
-    }
-
-    if (!empty($node->field_email[$languages['field_email']][0]) &&
-      ($mail = $node->field_email[$languages['field_email']][0])) {
-      $vars['mail'] = l($mail['email'], 'mailto:' . $mail['email']);
-    }
+    $data = _preprocess_address_and_contact($node);
+    $vars += $data;
   }
   else {
     $vars['name'] = t('Please select a library to display address information for at the <a href="!link">block configuration page</a>.', array('!link' => url('admin/structure/block/manage/ding_library/library_address/configure')));
   }
+}
+
+/**
+ * Preprocess adddress and contact info.
+ *
+ * @param stdClass $node
+ *   Drupal node.
+ * @return array
+ *   Preprocessed data.
+ */
+function _preprocess_address_and_contact(stdClass $node) {
+  $vars = array();
+
+  $languages = field_language('node', $node);
+  $vars['name'] = check_plain($node->title);
+  if (!empty($node->field_address[$languages['field_address']][0]) && ($address = $node->field_address[$languages['field_address']][0])) {
+    $vars['address'] = check_plain($address['thoroughfare']);
+    if ($address['premise']) {
+      $vars['address'] .= ', ' . $address['premise'];
+    }
+    $vars['city'] = join(' ', array(check_plain($address['postal_code']), check_plain($address['locality'])));
+  }
+
+  if (!empty($node->field_phone[$languages['field_phone']][0]) &&
+    ($phone = $node->field_phone[$languages['field_phone']][0]['safe_value'])) {
+    $vars['phone'] = t('Phone: @phone_number', array('@phone_number' => $phone));
+  }
+
+  if (!empty($node->field_email[$languages['field_email']][0]) &&
+    ($mail = $node->field_email[$languages['field_email']][0])) {
+    $vars['mail'] = l($mail['email'], 'mailto:' . $mail['email']);
+  }
+
+  return $vars;
 }
 
 /**
