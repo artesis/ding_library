@@ -106,6 +106,7 @@ function template_preprocess_ding_library_opening_hours_view(&$vars) {
 function template_preprocess_ding_library_opened_today_view(&$vars) {
   $libraries = array();
   $today = date('Y-m-d');
+  global $language;
 
   // Load all libraries form list, because there are less libraries than dates
   // and because of how opening_hours_instance_load_multiple works
@@ -113,6 +114,7 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
     ->fields('n', array('nid', 'title'))
     ->condition('n.type', 'ding_library')
     ->condition('n.status', NODE_PUBLISHED)
+    ->condition('n.language', array($language->language, 'und'), 'IN')
     ->execute()
     ->fetchAll();
 
