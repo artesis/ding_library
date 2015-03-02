@@ -26,10 +26,7 @@ function ding_library_ctools_plugin_api() {
  * Implements hook_views_api().
  */
 function ding_library_views_api() {
-  list($module, $api) = func_get_args();
-  if ($module == "views" && $api == "views_default") {
-    return array("version" => "3.0");
-  }
+  return array("version" => "3.0");
 }
 
 /**
@@ -59,6 +56,7 @@ function ding_library_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'ding_library_about',
   );
 
   // Exported image style: ding_library_header.
@@ -81,6 +79,7 @@ function ding_library_image_default_styles() {
         'weight' => '1',
       ),
     ),
+    'label' => 'ding_library_header',
   );
 
   // Exported image style: ding_library_list.
@@ -104,28 +103,7 @@ function ding_library_image_default_styles() {
         'weight' => '2',
       ),
     ),
-  );
-
-  // Exported image style: ding_library_list_w_190_h_140.
-  $styles['ding_library_list_w_190_h_140'] = array(
-    'name' => 'ding_library_list_w_190_h_140',
-    'effects' => array(
-      1 => array(
-        'label' => 'Resize',
-        'help' => 'Resizing will make images an exact set of dimensions. This may cause images to be stretched or shrunk disproportionately.',
-        'effect callback' => 'image_resize_effect',
-        'dimensions callback' => 'image_resize_dimensions',
-        'form callback' => 'image_resize_form',
-        'summary theme' => 'image_resize_summary',
-        'module' => 'image',
-        'name' => 'image_resize',
-        'data' => array(
-          'width' => '190',
-          'height' => '140',
-        ),
-        'weight' => '1',
-      ),
-    ),
+    'label' => 'ding_library_list',
   );
 
   return $styles;

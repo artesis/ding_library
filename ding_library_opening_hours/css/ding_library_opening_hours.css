@@ -1,6 +1,5 @@
 .ding-library-opened-today .library,
 .ding-library-opening-hours .day {
-  overflow: hidden;
   display: block;
 }
 
@@ -13,5 +12,9 @@
 .ding-library-opened-today .library .hours,
 .ding-library-opening-hours .day .hours {
   display: block;
-  float: right;
+  text-align: right;
+}
+
+.ding-library-opened-today .library .hours .notice-star {
+  margin-right: -1em;
 }
