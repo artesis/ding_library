@@ -39,7 +39,7 @@ function ding_library_opening_hours_block_view($delta = '') {
     drupal_add_css(drupal_get_path('module', 'ding_library_opening_hours') . '/css/ding_library_opening_hours.css', array('type' => 'file'));
     drupal_add_js(drupal_get_path('module', 'ding_library_opening_hours') . '/js/ding_library_opening_hours.js', array('type' => 'file'));
 
-    $block['subject'] = t('Opened today');
+    $block['subject'] = t('Today\'s opening hours');
     $block['content'] = array(
       '#theme' => 'ding_library_opened_today_view',
     );
