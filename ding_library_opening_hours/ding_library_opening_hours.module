@@ -4,6 +4,23 @@
  * Code for the Ding library opening hours related blocks.
  */
 
+include_once 'ding_library_opening_hours.features.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function ding_library_opening_hours_menu() {
+  $items = array();
+  $items['ding_library/opening_hours/save'] = array(
+    'page callback' => 'ding_library_opening_hours_save',
+    'access callback' => 'user_access',
+    'access arguments' => array('edit opening hours for content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
 /**
  * Implements hook_block_info().
  */
@@ -110,15 +127,20 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
   $today = date('Y-m-d');
   global $language;
 
+  $qid = _ding_library_opening_hours_nodequeue_id();
+
   // Load all libraries form list, because there are less libraries than dates
   // and because of how opening_hours_instance_load_multiple works
-  $raw_libraries = db_select('node', 'n')
+  $query = db_select('node', 'n')
     ->fields('n', array('nid', 'title'))
     ->condition('n.type', 'ding_library')
     ->condition('n.status', NODE_PUBLISHED)
-    ->condition('n.language', array($language->language, 'und'), 'IN')
-    ->execute()
-    ->fetchAll();
+    ->condition('n.language', array($language->language, 'und'), 'IN');
+
+  $query->join('nodequeue_nodes', 'nq', 'n.nid = nq.nid AND nq.qid = ' . $qid);
+  $query->orderBy("nq.position", "ASC");
+
+  $raw_libraries = $query->execute()->fetchAll();
 
   if (count($raw_libraries)) {
     foreach ($raw_libraries as $library) {
@@ -137,3 +159,88 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
   $vars['libraries'] = $libraries;
 }
 
+/**
+ * Implement hook_preprocess_page().
+ *
+ * @param array $variables
+ *   Available variables on page.
+ */
+function ding_library_opening_hours_preprocess_page(&$variables) {
+  $args = arg();
+  if ($args && $args[0] == 'node' && !empty($args[2]) && $args[2] == 'opening_hours') {
+    $js_path = drupal_get_path('module', 'ding_library_opening_hours') . '/js/ding_library_opening_hours.views.js';
+    drupal_add_js($js_path, array(
+      'type' => 'file',
+      'scope' => 'footer',
+      'group' => JS_THEME,
+      'weight' => 99,
+    ));
+  }
+}
+
+/**
+ * Update node queue on opening hours schedule save.
+ */
+function ding_library_opening_hours_save() {
+  if (!empty($_POST['nid']) && (int) $_POST['nid']) {
+    $nid = $_POST['nid'];
+
+    $qid = _ding_library_opening_hours_nodequeue_id();
+    $queue = nodequeue_load($qid);
+
+    _ding_library_opening_hours_update_queue($queue, $nid);
+  }
+}
+
+/**
+ * Get nodequeue id based on machine name.
+ *
+ * @return int
+ *   Nodequeue id.
+ */
+function _ding_library_opening_hours_nodequeue_id() {
+  // Get node queue.
+  $query = db_select('nodequeue_queue', 'nq')
+    ->fields('nq', array('qid'))
+    ->condition('nq.name', 'opening_hours');
+  $query->join('nodequeue_subqueue', 'nsq', 'nsq.qid = nq.qid');
+  $result = $query->execute()->fetchObject();
+  $qid = $result->qid;
+
+  return $qid;
+}
+
+/**
+ * Update queue based on the modifications made on the library node.
+ *
+ * @param \stdClass $queue
+ *   Nodequeue object.
+ * @param int $nid
+ *   Node id.
+ */
+function _ding_library_opening_hours_update_queue($queue, $nid) {
+  $subqueues = nodequeue_load_subqueues_by_queue($queue->qid);
+
+  foreach ($subqueues as $subqueue) {
+    $position = nodequeue_get_subqueue_position($subqueue->sqid, $nid);
+    if (!$position) {
+      nodequeue_subqueue_add($queue, $subqueue, $nid);
+    }
+    else {
+      nodequeue_queue_front($subqueue, $position);
+    }
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function ding_library_opening_hours_node_update($node) {
+  // Add saved node to queue.
+  if ($node->type == 'ding_library') {
+    $qid = _ding_library_opening_hours_nodequeue_id();
+    $queue = nodequeue_load($qid);
+
+    _ding_library_opening_hours_update_queue($queue, $node->nid);
+  }
+}
