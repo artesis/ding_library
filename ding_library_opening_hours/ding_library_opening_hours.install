@@ -1,0 +1,31 @@
+<?php
+/**
+ * Perform tasks on module install/uninstall and update.
+ */
+
+/**
+ * Enables nodequeue dependencies.
+ */
+function ding_library_opening_hours_update_7001() {
+  module_enable(array('nodequeue', 'fe_nodequeue'));
+}
+
+/**
+ * Move all existing libraries to the nodequeue.
+ */
+function ding_library_opening_hours_update_7002() {
+  $raw_libraries = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->condition('n.type', 'ding_library')
+    ->condition('n.status', NODE_PUBLISHED)
+    ->execute()->fetchAll();
+
+  if (count($raw_libraries)) {
+    $qid = _ding_library_opening_hours_nodequeue_id();
+    $queue = nodequeue_load($qid);
+
+    foreach ($raw_libraries as $library) {
+      _ding_library_opening_hours_update_queue($queue, $library->nid);
+    }
+  }
+}
