@@ -355,6 +355,10 @@ function ding_library_default_page_manager_pages() {
     'css' => '',
     'contexts' => array(),
     'relationships' => array(),
+    'panels_breadcrumbs_state' => 1,
+    'panels_breadcrumbs_titles' => 'Library departments',
+    'panels_breadcrumbs_paths' => '',
+    'panels_breadcrumbs_home' => 1,
   );
   $display = new panels_display();
   $display->layout = 'omega_12_twocol_4_8';
