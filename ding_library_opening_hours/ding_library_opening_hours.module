@@ -123,9 +123,11 @@ function template_preprocess_ding_library_opening_hours_view(&$vars) {
  * Preprocess variables for our template.
  */
 function template_preprocess_ding_library_opened_today_view(&$vars) {
+  global $language;
   $libraries = array();
   $today = date('Y-m-d');
-  global $language;
+
+  $blocked_days = variable_get('opening_hours_blocked_days', array());
 
   $qid = _ding_library_opening_hours_nodequeue_id();
 
@@ -147,12 +149,14 @@ function template_preprocess_ding_library_opened_today_view(&$vars) {
       $libraries[$library->nid]['title'] = l($library->title, 'node/' . $library->nid);
     }
 
-    // Get all dates for today
-    $opening_hours = opening_hours_instance_load_multiple(array_keys($libraries), $today, $today);
-    foreach ($opening_hours as $hour) {
-      $libraries[$hour->nid]['hours'][$hour->instance_id]['start_time'] = $hour->start_time;
-      $libraries[$hour->nid]['hours'][$hour->instance_id]['end_time'] = $hour->end_time;
-      $libraries[$hour->nid]['hours'][$hour->instance_id]['notice'] = $hour->notice;
+    if (!in_array($today, $blocked_days)) {
+      // Get all dates for today
+      $opening_hours = opening_hours_instance_load_multiple(array_keys($libraries), $today, $today);
+      foreach ($opening_hours as $hour) {
+        $libraries[$hour->nid]['hours'][$hour->instance_id]['start_time'] = $hour->start_time;
+        $libraries[$hour->nid]['hours'][$hour->instance_id]['end_time'] = $hour->end_time;
+        $libraries[$hour->nid]['hours'][$hour->instance_id]['notice'] = $hour->notice;
+      }
     }
   }
 
