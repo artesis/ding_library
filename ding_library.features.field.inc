@@ -371,7 +371,7 @@ function ding_library_field_default_fields() {
           'geocoder_field' => array(
             'field_address' => 'field_address',
           ),
-          'geocoder_handler' => 'google',
+          'geocoder_handler' => 'openstreetmap_nominatim',
         ),
         'type' => 'geocoder',
         'weight' => '13',
