@@ -78,3 +78,40 @@ function ding_library_update_7004() {
     variable_set('openlayers_source', 'profiles/artesis/libraries/openlayers/OpenLayers.js');
   }
 }
+
+/**
+ * Switch OpenLayer handler to OSM from Google.
+ */
+function ding_library_update_7005() {
+  // Step 1: Truncate `cache_geocoder` table.
+  db_truncate('cache_geocoder')->execute();
+
+  // Step 2: Update `field_geocode` settings.
+  $instance = field_info_instance('node', 'field_geocode', 'ding_library');
+  $instance['widget']['settings']['geocoder_handler'] = 'openstreetmap_nominatim';
+  $instance['widget']['settings']['handler_settings'] = [];
+
+  try {
+    field_update_instance($instance);
+  }
+  catch (Exception $exception) {
+    watchdog_exception('ding_library', $exception, 'We had problems on field instance updating.');
+  }
+
+  // Step 3: Re-save library nodes.
+  $nodes = db_select('node', 'n')
+    ->fields('n', ['nid'])
+    ->condition('status', 1)
+    ->condition('type', 'ding_library')
+    ->execute()
+    ->fetchCol();
+
+  foreach ($nodes as $node) {
+    try {
+      node_save(node_load($node));
+    }
+    catch (Exception $e) {
+      watchdog_exception('ding_library', $e, 'We had problems on node saving.');
+    }
+  }
+}
