@@ -113,7 +113,10 @@ function ding_library_openlayers_map_preprocess_alter(&$map) {
   }
 
   $node = node_load(arg(1));
-  $centerpoint = $node->field_geocode['und'][0]['lon'] . ', ' . $node->field_geocode['und'][0]['lat'];
+  if (empty($node->field_geocode)) {
+    return;
+  }
+  $centerpoint = $node->field_geocode[LANGUAGE_NONE][0]['lon'] . ', ' . $node->field_geocode[LANGUAGE_NONE][0]['lat'];
 
   $map['center'] = array(
     'initial' => array(
