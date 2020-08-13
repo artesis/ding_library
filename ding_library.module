@@ -429,7 +429,7 @@ include_once('ding_library.features.inc');
  * Implements hook_entity_property_info_alter().
  */
 function ding_library_entity_property_info_alter(&$info) {
-  $info["node"]["bundles"]["ding_library"]["properties"]["field_address"] = [
+  $info['node']['bundles']['ding_library']['properties']['field_address'] = [
     'type' => 'text',
     'label' => 'Customize address.',
     'getter callback' => 'ding_library_custom_address',
@@ -444,6 +444,7 @@ function ding_library_entity_property_info_alter(&$info) {
 function ding_library_custom_address($entity, $options, $field, $entity_type, $property) {
   $address = $entity->{$field}[LANGUAGE_NONE][0];
   unset($address['locality']);
-  unset($address['country']);
+  unset($address['premise']);
+  $address['country'] = 'Denmark';
   return $address;
 }
