@@ -115,3 +115,31 @@ function ding_library_update_7005() {
     }
   }
 }
+
+/**
+ * Refresh libraries coordinates.
+ */
+function ding_library_update_7006() {
+  // Step 1: Truncate `cache_geocoder` table.
+  db_truncate('cache_geocoder')->execute();
+
+  // Step 2: Disable geocoder empty results cache functionality.
+  variable_set('geocoder_cache_empty_results', 0);
+
+  // Step 3: Re-save library nodes.
+  $nodes = db_select('node', 'n')
+    ->fields('n', ['nid'])
+    ->condition('status', 1)
+    ->condition('type', 'ding_library')
+    ->execute()
+    ->fetchCol();
+
+  foreach ($nodes as $node) {
+    try {
+      node_save(node_load($node));
+    }
+    catch (Exception $e) {
+      watchdog_exception('ding_library', $e, 'We had problems on node saving.');
+    }
+  }
+}
