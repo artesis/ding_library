@@ -143,3 +143,24 @@ function ding_library_update_7006() {
     }
   }
 }
+
+/**
+ * Re-save library nodes.
+ */
+function ding_library_update_7007(&$sandbox) {
+  $nodes = db_select('node', 'n')
+    ->fields('n', ['nid'])
+    ->condition('status', 1)
+    ->condition('type', 'ding_library')
+    ->execute()
+    ->fetchCol();
+
+  foreach ($nodes as $node) {
+    try {
+      node_save(node_load($node));
+    }
+    catch (Exception $e) {
+      watchdog_exception('ding_library', $e, 'We had problems on node saving.');
+    }
+  }
+}
