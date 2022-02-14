@@ -1,5 +1,8 @@
 ## Change Log
 
+### 7.x-5.0.0 (14/02-2022)
+- [#14](https://github.com/artesis/ding_library/pull/14) DBC-1465 - Adaptation to PHP7.3+. (@bozeak)
+
 ### 7.x-4.6 (17/09-2021)
 - [#13](https://github.com/artesis/ding_library/pull/13) DBC-1454 - Libraries missing OpenStreeMap on contat page. (@bozeak)
 
@@ -17,8 +20,8 @@
 - [#8](https://github.com/artesis/ding_library/pull/8) DBC-1307 - Add breadcrumb to Libraries page. (@bozeak)
 
 ### 7.x-3.1 (16/05-2017)
-- [#7](https://github.com/artesis/ding_library/pull/7) DBC-1298 - Update already enabled module with new functionality. (@NicolaeGrigoriu)
-- [#6](https://github.com/artesis/ding_library/pull/6) DBC-1298 - Integrate nodequeue in library opening hours. (@NicolaeGrigoriu)
+- [#7](https://github.com/artesis/ding_library/pull/7) DBC-1298 - Update already enabled module with new functionality. (@artesis)
+- [#6](https://github.com/artesis/ding_library/pull/6) DBC-1298 - Integrate nodequeue in library opening hours. (@artesis)
 
 ### 7.x-1.4.2 (18/07-2012)
 - [#3](https://github.com/artesis/ding_library/pull/3) case 748 - Re-exported the views needed on Library page (@oxrc)
