@@ -222,9 +222,11 @@ function ding_library_block_view($delta = '') {
               foreach ($tree as $item) {
                   if ($item['link']['in_active_trail']) {
                       $node = menu_get_object();
-                      if ($node->type == 'ding_library') {
+                      if (!empty($node)) {
+                        if ($node->type == 'ding_library') {
                           $tree = $item['below'];
                           break;
+                        }
                       }
                   }
               }
